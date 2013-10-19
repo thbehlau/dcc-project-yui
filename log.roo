@@ -1,0 +1,20 @@
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-04 09:11:33
+project --topLevelPackage com.isostech.dcc --projectName dcc-project --java 7 --packaging WAR
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-04 09:11:34
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log opened at 2013-09-04 09:11:37
+jpa setup --provider HIBERNATE --database HYPERSONIC_IN_MEMORY 
+entity jpa --class ~.domain.Person --testAutomatically 
+field string --fieldName firstName --sizeMax 20
+field string --fieldName lastName --sizeMax 20
+entity jpa --class ~.domain.Contact --testAutomatically 
+field string --fieldName type --sizeMax 10
+
+field string --fieldName contactValue --sizeMax 256
+focus --class ~.domain.Person
+field set --fieldName contacts --type ~.domain.Contact --mappedBy person --cardinality ONE_TO_MANY 
+focus --class ~.domain.Contact
+field reference --fieldName person --type ~.domain.Person  --cardinality MANY_TO_ONE 
+json all
+web mvc json setup
+web mvc json all
+// Spring Roo 1.2.3.RELEASE [rev 7fd62b6] log closed at 2013-09-05 21:44:08

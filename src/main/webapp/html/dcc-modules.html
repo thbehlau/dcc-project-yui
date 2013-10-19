@@ -1,0 +1,44 @@
+<html>
+<head>
+	<script src="http://yui.yahooapis.com/3.11.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+	<div>
+		<h2 id="hello"></h2>
+	</div>
+	<div class="yui3-u-1">
+		<div class="yui3-u-1-3" id="userTable"></div>
+		<div class="yui3-u-1-2" id="contactTable"></div>
+	</div>
+		
+	<script>
+		// Create a YUI sandbox on your page.
+		YUI({
+			groups: {
+				'dcc': {
+					modules: {
+						'dcc-model' :{
+							fullpath: '/dcc-project/yui3-js/dcc-model.js',
+							requires: ['model', 'model-list', 'model-sync-rest']
+						},
+						'dcc-view' :{
+							fullpath: '/dcc-project/yui3-js/dcc-view.js',
+							requires: ['datatable', 'dcc-model']
+						}
+					}
+				}
+			}
+		}).use('node', 'datatable', 'datasource', 'dcc-model', 'dcc-view', function(Y) {
+			Y.one('#hello').setHTML("Welcome to YUI3!");
+
+
+			var userWidget = new Y.UserWidget({
+				userSrcNode: '#userTable',
+				contactSrcNode: '#contactTable'
+			});
+			userWidget.render();
+		});
+	</script>
+</body>
+</html>
+

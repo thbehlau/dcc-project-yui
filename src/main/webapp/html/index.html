@@ -1,0 +1,107 @@
+<html>
+<head>
+<!--  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.11.0/build/cssgrids/cssgrids-min.css"> -->
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.11.0/build/cssgrids-responsive/cssgrids-responsive-min.css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.11.0/build/cssreset/cssreset.css" type="text/css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.11.0/build/cssfonts/cssfonts.css" type="text/css">
+<link rel="stylesheet" href="http://yui.yahooapis.com/3.11.0/build/cssbase/cssbase.css" type="text/css">
+<script src="http://yui.yahooapis.com/3.11.0/build/yui/yui-min.js"></script>
+<style type="text/css">
+.yui3-loading {
+	display: none;
+}
+</style>
+</head>
+<body class="yui3-skin-sam">
+	<div class="yui3-g-r" id="main">
+		<div class="yui3-u-1 yui3-menu yui3-menu-horizontal yui3-loading"
+			id="menu">
+			<div class="yui3-menu-content">
+				<ul>
+					<li><a class="yui3-menu-label" href="#user-menu"><em>Users</em></a>
+						<div class="yui3-menu" id="user-menu">
+							<div class="yui3-menu-content">
+								<ul>
+									<li class="yui3-menuitem"><a class="yui3-menuitem-content"
+										id="user-add" href="#">Add</a></li>
+									<li class="yui3-menuitem"><a class="yui3-menuitem-content"
+										id="user-fill" href="#">Fill</a></li>
+								</ul>
+							</div>
+						</div></li>
+					<li class="yui3-menulabel"><a class="yui3-menu-label"
+						href="#languages-menu"><em>Languages</em></a>
+						<div class="yui3-menu" id="languages-menu">
+							<div class="yui3-menu-content">
+								<ul>
+									<li class="yui3-menuitem"><a class="yui3-menuitem-content"
+										id="lang-en" href="#">English</a></li>
+									<li class="yui3-menuitem"><a class="yui3-menuitem-content"
+										id="lang-de" href="#">German</a></li>
+								</ul>
+							</div>
+						</div></li>
+				</ul>
+			</div>
+		</div>
+		<div class="yui3-u-1">
+			<h2>Hello YUI3!</h2>
+		</div>
+		<div class="yui3-u-1">
+			<div class="yui3-u-1-3" id="userTable"></div>
+			<div class="yui3-u-1-2" id="contactTable"></div>
+		</div>		
+		
+	</div>
+	<script>
+		// Create a YUI sandbox on your page.
+		YUI({
+			groups: {
+				'dcc': {
+					modules: {
+						'dcc-model' :{
+							fullpath: '/dcc-project/yui3-js/dcc-model.js',
+							requires: ['model', 'model-list', 'model-sync-rest']
+						},
+						'dcc-view-panel' :{
+							fullpath: '/dcc-project/yui3-js/dcc-view-panel.js',
+							requires: ['datatable', 'dcc-model']
+						}
+					}
+				}
+			}
+		}).use('node-menunav', 'panel', 'dcc-model', 'dcc-view-panel', function(Y) {
+			
+
+			var userWidget = new Y.UserWidget({
+				userSrcNode: '#userTable',
+				contactSrcNode: '#contactTable'
+			});
+			userWidget.render();
+			
+			Y.one('#user-add').on('click', function(e) {
+				userWidget.showUserPanel();
+			});
+
+			Y.one('#user-fill').on('click', function(e) {
+				Y.log('user-fill');
+			});
+
+			Y.one('#lang-en').on('click', function(e) {
+				Y.log('lang-en');
+
+			});
+			Y.one('#lang-de').on('click', function(e) {
+				Y.log('lang-de');
+			});
+
+			//  Show the menu now that it is ready
+
+			var menu = new Y.one('#menu');
+			menu.plug(Y.Plugin.NodeMenuNav, {});
+
+			menu.removeClass('yui3-loading');
+		});
+	</script>
+</body>
+</html>

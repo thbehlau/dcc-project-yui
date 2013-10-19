@@ -1,0 +1,51 @@
+<html>
+<head>
+	<script src="http://yui.yahooapis.com/3.11.0/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+	<div>
+		<h2 id="hello"></h2>
+	</div>
+	<div class="yui3-u-1">
+		<div id="userTable"></div>
+	</div>
+		
+	<script>
+		// Create a YUI sandbox on your page.
+		YUI({
+			
+		}).use('node', 'datatable', 'datasource', 'model', 'model-list', 'model-sync-rest', function(Y) {
+			Y.one('#hello').setHTML("Welcome to YUI3!");
+			
+			Y.User = Y.Base.create('user', Y.Model, [Y.ModelSync.REST], {
+			    // The root or collection path segment for the server's Users resource.
+			    root: '/dcc-project/people'
+			});
+			
+			Y.Users = Y.Base.create('users',Y.ModelList, [Y.ModelSync.REST],{
+				model: Y.User
+			});
+			
+			// A table from data with keys that work fine as column names
+			var userTable = new Y.DataTable({
+				columns : [ 
+				    {key: "id", label: "ID"},
+				    {key: "firstName", label: "First Name"},
+				    {key: "lastName", label: "Last Name"},
+				    {key: "contacts", label: "Contacts", nodeFormatter: contactsFormatter} 
+				    ],
+				caption : "User table",
+				data: new Y.Users()
+			});
+
+			function contactsFormatter(o) {
+				o.cell.setContent("<button type='button' name='contacts'>Contacts</button>");
+			}
+			userTable.data.load(function(){
+				userTable.render("#userTable");				
+			});
+		});
+	</script>
+</body>
+</html>
+

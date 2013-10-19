@@ -1,0 +1,72 @@
+<html>
+<head>
+	<script src="http://yui.yahooapis.com/3.11.0/build/yui/yui-min.js"></script>
+	<style type="text/css">
+      .yui3-loading {
+	     display: none;
+      }
+   </style>
+</head>
+<body class="yui3-skin-sam">
+  <div class="yui3-menu yui3-menu-horizontal yui3-loading" id="menu">
+    <div class="yui3-menu-content">
+      <ul>
+         <li>
+           <a class="yui3-menu-label" href="#user-menu"><em>Users</em></a>
+           <div class="yui3-menu" id="user-menu">
+           <div class="yui3-menu-content">
+             <ul>
+               <li class="yui3-menuitem"><a class="yui3-menuitem-content" id="user-add" href="#">Add</a></li>
+               <li class="yui3-menuitem"><a class="yui3-menuitem-content" id="user-fill" href="#">Fill</a></li>
+             </ul>
+           </div>
+         </div>
+       </li>
+     </ul>
+   </div>
+ </div>
+
+	<div>
+		<h2 id="hello"></h2>
+	</div>
+	<div>
+		<div id="userTable"></div>
+	</div>
+		
+	<script>
+		// Create a YUI sandbox on your page.
+		YUI({
+			
+		}).use('node', 'datatable', 'node-menunav', function(Y) {
+			Y.one('#hello').setHTML("Welcome to YUI3!");
+			
+			// A table from data with keys that work fine as column names
+			var userTable = new Y.DataTable({
+				columns : [ 
+				    {key: "id", label: "ID"},
+				    {key: "firstName", label: "First Name"},
+				    {key: "lastName", label: "Last Name"},
+				    {key: "contacts", label: "Contacts", nodeFormatter: contactsFormatter} 
+				],
+			    data : [],
+				caption : "User table"
+			});
+
+			function contactsFormatter(o) {
+				o.cell.setContent("<button type='button' name='contacts'>Contacts</button>");
+			}
+			
+			userTable.render("#userTable");
+			
+			//  Show the menu now that it is ready
+
+			var menu = new Y.one('#menu');
+			menu.plug(Y.Plugin.NodeMenuNav, {});
+
+			menu.removeClass('yui3-loading');
+
+		});
+	</script>
+</body>
+</html>
+

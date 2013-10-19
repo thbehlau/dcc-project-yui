@@ -1,0 +1,16 @@
+<html>
+<head>
+	<script src="http://yui.yahooapis.com/3.11.0/build/yui/yui-min.js"></script>
+</head>
+<body>
+	<div>
+		<h2 id="hello">Hello World</h2>
+	</div>
+	<script>
+		// Create a YUI sandbox on your page.
+		YUI().use('node', function(Y) {
+			Y.one('#hello').setHTML("Welcome to Desert Code Camp");
+		});
+	</script>
+</body>
+</html>
